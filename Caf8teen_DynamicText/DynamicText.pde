@@ -21,10 +21,42 @@ class DynamicText extends LXPattern {
     alphaNumericImage = loadImage("alpha.png");
     transparent = alphaNumericImage.get(0, 0);
     coordinates = new CharCoordinate[] {
-      new CharCoordinate(  0,   0,  15,  17),
+      new CharCoordinate(  0,   0,  15,  17), // A
       new CharCoordinate( 24,   0,  13,  17),
       new CharCoordinate( 49,   0,  15,  17),
-      new CharCoordinate( 76,   0,  14,  17)
+      new CharCoordinate( 76,   0,  14,  17),
+      new CharCoordinate(103,   0,  13,  17),
+      new CharCoordinate(130,   0,  12,  17), // F
+      new CharCoordinate(154,   0,  15,  17),
+      new CharCoordinate(182,   0,  14,  17),
+      new CharCoordinate(209,   0,  11,  17),
+      new CharCoordinate(  2,  29,  10,  17), // J
+      new CharCoordinate( 23,  29,  14,  17),
+      new CharCoordinate( 49,  29,  13,  17),
+      new CharCoordinate( 74,  29,  16,  17),
+      new CharCoordinate(102,  29,  14,  17),
+      new CharCoordinate(128,  29,  16,  17), // O
+      new CharCoordinate(155,  29,  14,  17),
+      new CharCoordinate(179,  29,  16,  19),
+      new CharCoordinate(204,  29,  14,  17),
+      new CharCoordinate(  1,  56,  12,  16),
+      new CharCoordinate( 24,  56,  13,  16), // T
+      new CharCoordinate( 48,  56,  14,  16),
+      new CharCoordinate( 74,  56,  14,  16),
+      new CharCoordinate( 98,  56,  21,  16),
+      new CharCoordinate(130,  56,  12,  16),
+      new CharCoordinate(155,  56,  14,  16),
+      new CharCoordinate(179,  56,  12,  16), // Z
+      new CharCoordinate(  2,  84,   5,  16), // 1
+      new CharCoordinate( 20,  84,  12,  16),
+      new CharCoordinate( 43,  84,  12,  16),
+      new CharCoordinate( 65,  84,  14,  16),
+      new CharCoordinate( 89,  84,  12,  16), // 5
+      new CharCoordinate(113,  84,  12,  16), 
+      new CharCoordinate(137,  84,  11,  16),
+      new CharCoordinate(159,  84,  13,  16),
+      new CharCoordinate(181,  84,  14,  16),
+      new CharCoordinate(205,  84,  14,  16)  // 0
     };
     alphaNumericMap = new HashMap<String, CharCoordinate>();
     for (int i = 0; i < coordinates.length; i++) {
@@ -35,11 +67,15 @@ class DynamicText extends LXPattern {
   public void run(int deltaMs) {
     fill(255,255,150);
     String message = args.length > 0 ? args[0] : DEFAULT_STRING;
-    message = "ABCD";
+    message = "A1B2C3D4E5F6G7H8I9J0KLMNOP";
     
     int xPosition = 0;
     
     for (int i = 0; i < message.length(); i++) {
+      if (xPosition > lx.width - 1) {
+        break;
+      }
+      
       String character = Character.toString(message.charAt(i));
       CharCoordinate coordinate = (CharCoordinate) alphaNumericMap.get(character);
       int xStart = coordinate.getX();
@@ -53,7 +89,7 @@ class DynamicText extends LXPattern {
         }
         
         for (int y = 0; y < height; y++) {
-          if (y + yStart > lx.height - 1) {
+          if (y > lx.height - 1) {
             break;
           }
           
