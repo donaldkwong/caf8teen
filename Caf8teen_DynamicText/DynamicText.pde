@@ -2,7 +2,7 @@ import java.util.HashMap;
 
 class DynamicText extends LXPattern {
   
-  private static final String DEFAULT_STRING = "HACK ALREADY BRO";
+  private static final String DEFAULT_STRING = "WELCOME TO THE Q AND A";
   private static final String ALPHA_NUMERIC = " ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
  
   private final SinLFO xOffset;
@@ -151,7 +151,7 @@ class DynamicText extends LXPattern {
         }
         
         xPosition++;
-        println(xPosition);
+        //println(xPosition);
       }
     maxXPos = xPosition - 1;
     }
