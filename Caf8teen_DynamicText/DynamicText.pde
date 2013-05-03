@@ -104,8 +104,7 @@ class DynamicText extends LXPattern {
 
     xPos++;
     if(maxXPos < 2){ runNumber = 0; xPos =0;};
-    if(xPos%2 == 0){ runNumber++; offset++;}
-    
+    if(xPos%10 <9){ runNumber++; offset++;}
     xPosition = (lx.width) - runNumber;
     corLength = corWidth(coordinates);
     //println("Cooel " + corLength);
