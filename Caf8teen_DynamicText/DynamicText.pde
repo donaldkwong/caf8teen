@@ -7,8 +7,13 @@ class DynamicText extends LXPattern {
  
   private final SinLFO xOffset;
   private final SinLFO yOffset;
-  private final PImage alphaNumericImage;
-  private final color transparent;
+  private final PImage[] alphaNumericImages;
+  private final PImage alphaNumericImageRed;
+  private final PImage alphaNumericImageGreen;
+  private final PImage alphaNumericImageBlue;
+  private final PImage alphaNumericImageYellow;
+  private final PImage alphaNumericImageViolet;
+  private final PImage alphaNumericImageOrange;
   private final CharCoordinate[] coordinates;
   private final HashMap alphaNumericMap;
     
@@ -21,8 +26,20 @@ class DynamicText extends LXPattern {
     yOffset = new SinLFO(260, 160, 30000);
     addModulator(xOffset).trigger();
     addModulator(yOffset).trigger();
-    alphaNumericImage = loadImage("alpha.png");
-    transparent = alphaNumericImage.get(0, 0);
+    alphaNumericImageRed = loadImage("alpha_red.png");
+    alphaNumericImageGreen = loadImage("alpha_green.png");
+    alphaNumericImageBlue = loadImage("alpha_blue.png");
+    alphaNumericImageYellow = loadImage("alpha_yellow.png");
+    alphaNumericImageViolet = loadImage("alpha_violet.png");
+    alphaNumericImageOrange = loadImage("alpha_orange.png");
+    alphaNumericImages = new PImage[] {
+      alphaNumericImageRed,
+      alphaNumericImageGreen,
+      alphaNumericImageBlue,
+      alphaNumericImageYellow,
+      alphaNumericImageViolet,
+      alphaNumericImageOrange
+    };
     coordinates = new CharCoordinate[] {
       new CharCoordinate( 15,   0,   9,  17), // " "
       new CharCoordinate(  0,   0,  15,  17), // A
@@ -74,6 +91,9 @@ class DynamicText extends LXPattern {
     int xPosition = 0;
     
     for (int i = 0; i < message.length(); i++) {
+//      int index = (int)(Math.random() * alphaNumericImages.length);
+      int index = i % alphaNumericImages.length;
+      PImage alphaNumericImage = alphaNumericImages[index];
       if (xPosition > lx.width - 1) {
         break;
       }
@@ -95,7 +115,7 @@ class DynamicText extends LXPattern {
             break;
           }
           
-          if (alphaNumericImage.get(x, y) == transparent) {
+          if (alphaNumericImage.get(x, y) == alphaNumericImage.get(0,0)) {
             continue;
           }
           
