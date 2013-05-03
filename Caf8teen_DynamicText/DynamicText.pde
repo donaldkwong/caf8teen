@@ -33,33 +33,33 @@ class DynamicText extends LXPattern {
       new CharCoordinate(154,   0,  15,  17),
       new CharCoordinate(182,   0,  14,  17),
       new CharCoordinate(209,   0,  11,  17),
-      new CharCoordinate(  2,  29,  10,  17), // J
-      new CharCoordinate( 23,  29,  14,  17),
-      new CharCoordinate( 49,  29,  13,  17),
-      new CharCoordinate( 74,  29,  16,  17),
-      new CharCoordinate(102,  29,  14,  17),
-      new CharCoordinate(128,  29,  16,  17), // O
-      new CharCoordinate(155,  29,  14,  17),
-      new CharCoordinate(179,  29,  16,  19),
-      new CharCoordinate(204,  29,  14,  17),
-      new CharCoordinate(  1,  56,  12,  16),
-      new CharCoordinate( 24,  56,  13,  16), // T
-      new CharCoordinate( 48,  56,  14,  16),
-      new CharCoordinate( 74,  56,  14,  16),
-      new CharCoordinate( 98,  56,  21,  16),
-      new CharCoordinate(130,  56,  12,  16),
-      new CharCoordinate(155,  56,  14,  16),
-      new CharCoordinate(179,  56,  12,  16), // Z
-      new CharCoordinate(  2,  84,   5,  16), // 1
-      new CharCoordinate( 20,  84,  12,  16),
-      new CharCoordinate( 43,  84,  12,  16),
-      new CharCoordinate( 65,  84,  14,  16),
-      new CharCoordinate( 89,  84,  12,  16), // 5
-      new CharCoordinate(113,  84,  12,  16), 
-      new CharCoordinate(137,  84,  11,  16),
-      new CharCoordinate(159,  84,  13,  16),
-      new CharCoordinate(181,  84,  14,  16),
-      new CharCoordinate(205,  84,  14,  16)  // 0
+      new CharCoordinate(  2,  28,  10,  17), // J
+      new CharCoordinate( 23,  28,  14,  17),
+      new CharCoordinate( 49,  28,  13,  17),
+      new CharCoordinate( 74,  28,  16,  17),
+      new CharCoordinate(102,  28,  14,  17),
+      new CharCoordinate(128,  28,  16,  17), // O
+      new CharCoordinate(155,  28,  14,  17),
+      new CharCoordinate(179,  28,  16,  19),
+      new CharCoordinate(204,  28,  14,  17),
+      new CharCoordinate(  1,  55,  12,  17),
+      new CharCoordinate( 24,  55,  13,  17), // T
+      new CharCoordinate( 48,  55,  14,  17),
+      new CharCoordinate( 74,  55,  14,  17),
+      new CharCoordinate( 98,  55,  21,  17),
+      new CharCoordinate(130,  55,  12,  17),
+      new CharCoordinate(155,  55,  14,  17),
+      new CharCoordinate(179,  55,  12,  17), // Z
+      new CharCoordinate(  2,  83,   5,  17), // 1
+      new CharCoordinate( 20,  83,  12,  17),
+      new CharCoordinate( 43,  83,  12,  17),
+      new CharCoordinate( 65,  83,  14,  17),
+      new CharCoordinate( 89,  83,  12,  17), // 5
+      new CharCoordinate(113,  83,  12,  17), 
+      new CharCoordinate(137,  83,  11,  17),
+      new CharCoordinate(159,  83,  13,  17),
+      new CharCoordinate(181,  83,  14,  17),
+      new CharCoordinate(205,  83,  14,  17)  // 0
     };
     alphaNumericMap = new HashMap<String, CharCoordinate>();
     for (int i = 0; i < coordinates.length; i++) {
@@ -70,7 +70,7 @@ class DynamicText extends LXPattern {
   public void run(int deltaMs) {
     fill(255,255,150);
     String message = args.length > 0 ? args[0] : DEFAULT_STRING;
-    message = "A1B2C3D4E5F6G7H8I9J0KLMNOP";
+    message = "AAAIJMNRSZ10";
     
     int xPosition = 0;
     
