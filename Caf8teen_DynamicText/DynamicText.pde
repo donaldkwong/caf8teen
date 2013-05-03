@@ -12,6 +12,9 @@ class DynamicText extends LXPattern {
   private final CharCoordinate[] coordinates;
   private final HashMap alphaNumericMap;
     
+  /**
+   * Animation that prints out the given message text.
+   */  
   public DynamicText(HeronLX lx) {
     super(lx);
     xOffset = new SinLFO(-50, 50, 23000);
@@ -105,6 +108,9 @@ class DynamicText extends LXPattern {
     }
   }
   
+  /**
+   * Class to map the top left coordinate and dimension of a letter in the alpha-numeric picture.
+   */
   public class CharCoordinate {
     
     private int mX;
