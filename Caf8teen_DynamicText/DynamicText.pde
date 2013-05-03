@@ -2,7 +2,7 @@ import java.util.HashMap;
 
 class DynamicText extends LXPattern {
   
-  private static final String DEFAULT_STRING = "WELCOME TO THE Q AND A";
+  private static final String DEFAULT_STRING = "WELCOME TO CAFE 18";
   private static final String ALPHA_NUMERIC = " ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
  
   private final SinLFO xOffset;
