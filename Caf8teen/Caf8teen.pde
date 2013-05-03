@@ -135,7 +135,7 @@ void setup() {
   
   
   lx.setPatterns(new LXPattern[] {
-    new LifePattern(lx).setTransition(dissolve),
+/*    new LifePattern(lx).setTransition(dissolve),
     new RainingLogo(lx).setTransition(rain),
     new SinWaves(lx).setTransition(dissolve),
     new Graph(lx).setTransition(dissolve),
@@ -146,7 +146,8 @@ void setup() {
     new EveningStars(lx).runDuringInterval(22*O_CLOCK, 5*O_CLOCK).setTransition(dissolve),
     new MorningSunrise(lx).runDuringInterval(5*O_CLOCK, 7*O_CLOCK).setTransition(rain),
     new NyanCat(lx).setTransition(dissolve),
-    new PacMan(lx).setTransition(dissolve),
+    new PacMan(lx).setTransition(dissolve), */
+    new EnterTheDoors(lx).setTransition(dissolve)
   });
   lx.cycleBaseHue(90*SECONDS);
   lx.enableAutoTransition(5*SECONDS);
