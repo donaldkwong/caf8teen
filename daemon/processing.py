@@ -21,8 +21,12 @@ def killCurrentProcessingApp():
 #
 # Launch the specified Processing standalone app
 #
-def launchApp(appName):
-  return subprocess.call(['open', config.PROCESSING_APPS_DIR + appName + '/' + appName + '.app']) == 0;
+def launchApp(appName, params):
+  processParams = ['open', config.PROCESSING_APPS_DIR + appName + '/' + appName + '.app'];
+  if params:
+    processParams.append('--args');
+    processParams.append(params);
+  return subprocess.call(processParams) == 0;
 
 #
 # Build the specified Processing sketch dir into a standalone appname
