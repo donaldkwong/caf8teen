@@ -94,6 +94,8 @@ class DynamicText extends LXPattern {
 //      int index = (int)(Math.random() * alphaNumericImages.length);
       int index = i % alphaNumericImages.length;
       PImage alphaNumericImage = alphaNumericImages[index];
+      color transparent = alphaNumericImage.get(0, 0);
+      
       if (xPosition > lx.width - 1) {
         break;
       }
@@ -115,7 +117,7 @@ class DynamicText extends LXPattern {
             break;
           }
           
-          if (alphaNumericImage.get(x, y) == alphaNumericImage.get(0,0)) {
+          if (alphaNumericImage.get(x, y) == transparent) {
             continue;
           }
           
