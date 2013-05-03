@@ -2,7 +2,7 @@ import java.util.HashMap;
 
 class DynamicText extends LXPattern {
   
-  private static final String DEFAULT_STRING = "MAYHEM EVERYWHERE";
+  private static final String DEFAULT_STRING = "HACK ALREADY BRO";
   private static final String ALPHA_NUMERIC = " ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
  
   private final SinLFO xOffset;
@@ -22,6 +22,7 @@ class DynamicText extends LXPattern {
   int offset = 0;
   int corLength =0;
   int xFade =1;
+  int maxXPos;
   /**
    * Animation that prints out the given message text.
    */  
@@ -99,13 +100,16 @@ class DynamicText extends LXPattern {
   }
   public void run(int deltaMs) {
     fill(255,255,150);
-    String message = args.length > 0 ? args[0] : DEFAULT_STRING;    
+    String message = args.length > 0 ? args[0] + " " : DEFAULT_STRING + " ";    
 
     xPos++;
+    if(maxXPos < 2){ runNumber = 0; xPos =0;};
     if(xPos%2 == 0){ runNumber++; offset++;}
-    xPosition = (lx.width/2) - runNumber;
+    
+    xPosition = (lx.width) - runNumber;
     corLength = corWidth(coordinates);
     //println("Cooel " + corLength);
+
     for (int i = 0; i < message.length(); i++) {
 //      int index = (int)(Math.random() * alphaNumericImages.length);
       int index = i % alphaNumericImages.length;
@@ -136,19 +140,20 @@ class DynamicText extends LXPattern {
           if (alphaNumericImage.get(x, y) == transparent) {
             continue;
           }
+          
           if (lx.width/2 - runNumber < 0){ 
-            if(xPosition < 0){ continue;}
-          setColor(xPosition, y, alphaNumericImage.get(xStart + x, yStart + y));
+            if(xPosition < 0 || i == (message.length()) ){ continue;}
+          setColor(xPosition , y+3, alphaNumericImage.get(xStart + x, yStart + y));
           }
           else{
-          setColor(xPosition, y, alphaNumericImage.get(xStart + x, yStart + y));
+          setColor(xPosition, y+3, alphaNumericImage.get(xStart + x, yStart + y));
           }
         }
         
         xPosition++;
         println(xPosition);
       }
-    xFade++;
+    maxXPos = xPosition - 1;
     }
   }
   
