@@ -19,6 +19,8 @@ class DynamicText extends LXPattern {
   int xPosition=-1000;
   int runNumber = 1;
   int xPos = 1;
+  int offset = 0;
+  int corLength =0;
   /**
    * Animation that prints out the given message text.
    */  
@@ -87,15 +89,22 @@ class DynamicText extends LXPattern {
       alphaNumericMap.put(Character.toString(ALPHA_NUMERIC.charAt(i)), coordinates[i]);
     }
   }    
-  
+  public int corWidth( CharCoordinate[] cor){
+  int corLength = 0;
+  for(int i=0; i < cor.length; i++){
+  corLength += cor[i].getWidth();
+  }
+  return corLength;
+  }
   public void run(int deltaMs) {
     fill(255,255,150);
     String message = args.length > 0 ? args[0] : DEFAULT_STRING;    
 
     xPos++;
-    if(xPos%10 == 0){ runNumber++;}
+    if(xPos%10 == 0){ runNumber++; offset++;}
     xPosition = (lx.width/2) - runNumber;
-    
+    corLength = corWidth(coordinates);
+    println("Cooel " + corLength);
     for (int i = 0; i < message.length(); i++) {
 //      int index = (int)(Math.random() * alphaNumericImages.length);
       int index = i % alphaNumericImages.length;
@@ -127,7 +136,10 @@ class DynamicText extends LXPattern {
           if (alphaNumericImage.get(x, y) == transparent) {
             continue;
           }
-          if (lx.width/2 - runNumber < 2){ continue;}
+          if (lx.width/2 - runNumber < 2){ 
+          continue;   
+        
+      }
           
           setColor(xPosition, y, alphaNumericImage.get(xStart + x, yStart + y));
         }
