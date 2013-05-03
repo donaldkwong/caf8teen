@@ -10,6 +10,7 @@ def killCurrentProcessingApp():
   lines = output.split('\n');
   for line in lines:
     if 'caf8teen' in line and 'JavaApplicationStub' in line:
+      line = line.strip();
       columns = line.split(' ');
       if columns.count > 0:
         pid = int(columns[0]);
