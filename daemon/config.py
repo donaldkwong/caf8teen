@@ -1,5 +1,5 @@
 API_HOST              = 'our.intern.facebook.com';
-COMMANDS_API_ENDPOINT = 'http://' + API_HOST + '/intern/caf18/commands/';
-STATUS_API_ENDPOINT   = 'http://' + API_HOST + '/intern/caf18/status/';
+COMMANDS_API_ENDPOINT = 'http://' + API_HOST + '/intern/caf8teen/commands/';
+STATUS_API_ENDPOINT   = 'http://' + API_HOST + '/intern/caf8teen/status/';
 
 PROCESSING_APPS_DIR   = '../apps/';
