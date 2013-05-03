@@ -133,22 +133,50 @@ void setup() {
   final int SECONDS = 1000;
   final int MINUTES = 60*SECONDS;
   
+  HashMap<String, LXPattern> patternMap = new HashMap<String, LXPattern>();
+  patternMap.put("life", new LifePattern(lx).setTransition(dissolve));
+  patternMap.put("raining", new RainingLogo(lx).setTransition(rain));
+  patternMap.put("sinwaves", new SinWaves(lx).setTransition(dissolve));
+  patternMap.put("graph", new Graph(lx).setTransition(dissolve));
+  patternMap.put("waitinline", new WaitInLine(lx).setTransition(dissolve));
+  patternMap.put("fadingboxes", new FadingBoxes(lx).setTransition(dissolve));
+  patternMap.put("blobbers", new Blobbers(lx).setTransition(dissolve));
+  patternMap.put("doors", new EnterTheDoors(lx).setTransition(dissolve));
+  patternMap.put("stars", new EveningStars(lx).runDuringInterval(22*O_CLOCK, 5*O_CLOCK).setTransition(dissolve));
+  patternMap.put("sunrise", new MorningSunrise(lx).runDuringInterval(5*O_CLOCK, 7*O_CLOCK).setTransition(rain));
+  patternMap.put("nyancat", new NyanCat(lx).setTransition(dissolve));
+  patternMap.put("pacman", new PacMan(lx).setTransition(dissolve));
   
-  lx.setPatterns(new LXPattern[] {
-    new LifePattern(lx).setTransition(dissolve),
-    new RainingLogo(lx).setTransition(rain),
-    new SinWaves(lx).setTransition(dissolve),
-    new Graph(lx).setTransition(dissolve),
-    new WaitInLine(lx).setTransition(dissolve),
-    new FadingBoxes(lx).setTransition(dissolve),
-    new Blobbers(lx).setTransition(dissolve),
-    new EnterTheDoors(lx).setTransition(dissolve),
-    new EveningStars(lx).runDuringInterval(22*O_CLOCK, 5*O_CLOCK).setTransition(dissolve),
-    new MorningSunrise(lx).runDuringInterval(5*O_CLOCK, 7*O_CLOCK).setTransition(rain),
-    new NyanCat(lx).setTransition(dissolve),
-    new PacMan(lx).setTransition(dissolve),
-    new EnterTheDoors(lx).setTransition(dissolve)
-  });
+  LXPattern[] patterns = null;
+  if (args.length > 0) {
+    String script = args[0];
+    LXPattern pattern = patternMap.get(script);
+    if (pattern != null) {
+      patterns = new LXPattern[] {
+        pattern
+      };
+    }    
+  }
+  
+  if (patterns == null) {
+    patterns = new LXPattern[] {
+      new LifePattern(lx).setTransition(dissolve),
+      new RainingLogo(lx).setTransition(rain),
+      new SinWaves(lx).setTransition(dissolve),
+      new Graph(lx).setTransition(dissolve),
+      new WaitInLine(lx).setTransition(dissolve),
+      new FadingBoxes(lx).setTransition(dissolve),
+      new Blobbers(lx).setTransition(dissolve),
+      new EnterTheDoors(lx).setTransition(dissolve),
+      new EveningStars(lx).runDuringInterval(22*O_CLOCK, 5*O_CLOCK).setTransition(dissolve),
+      new MorningSunrise(lx).runDuringInterval(5*O_CLOCK, 7*O_CLOCK).setTransition(rain),
+      new NyanCat(lx).setTransition(dissolve),
+      new PacMan(lx).setTransition(dissolve),
+      new EnterTheDoors(lx).setTransition(dissolve)
+    };
+  }
+  
+  lx.setPatterns(patterns);
   lx.cycleBaseHue(90*SECONDS);
   lx.enableAutoTransition(5*SECONDS);
   lx.enableSimulation(false);
