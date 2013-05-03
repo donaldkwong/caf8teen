@@ -2,8 +2,8 @@ import java.util.HashMap;
 
 class DynamicText extends LXPattern {
   
-  private static final String DEFAULT_STRING = "Mayhem Everywhere";
-  private static final String ALPHA_NUMERIC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+  private static final String DEFAULT_STRING = "MAYHEM EVERYWHERE";
+  private static final String ALPHA_NUMERIC = " ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
  
   private final SinLFO xOffset;
   private final SinLFO yOffset;
@@ -24,6 +24,7 @@ class DynamicText extends LXPattern {
     alphaNumericImage = loadImage("alpha.png");
     transparent = alphaNumericImage.get(0, 0);
     coordinates = new CharCoordinate[] {
+      new CharCoordinate( 15,   0,   9,  17), // " "
       new CharCoordinate(  0,   0,  15,  17), // A
       new CharCoordinate( 24,   0,  13,  17),
       new CharCoordinate( 49,   0,  15,  17),
@@ -69,9 +70,7 @@ class DynamicText extends LXPattern {
   
   public void run(int deltaMs) {
     fill(255,255,150);
-    String message = args.length > 0 ? args[0] : DEFAULT_STRING;
-    message = "AAAIJMNRSZ10";
-    
+    String message = args.length > 0 ? args[0] : DEFAULT_STRING;    
     int xPosition = 0;
     
     for (int i = 0; i < message.length(); i++) {
