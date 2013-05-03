@@ -159,7 +159,9 @@ void setup() {
   fill(#191919);
   rect(numInnerColumns*simulationScale, 0, simulationGap, height);
   rect(dishNicheOffset*simulationScale, dishNicheHeight*simulationScale, dishNicheWidth*simulationScale, height);
-  
+
+  kinetActive = true;
+  setKinet();
   println("Caf8teen initialized, press 'k' to toggle live lighting output (currently " + (kinetActive ? "enabled" : "disabled") + ")");
 }
 
