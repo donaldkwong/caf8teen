@@ -1,4 +1,4 @@
-API_HOST              = 'our.bobcat.sb.facebook.com';
+API_HOST              = 'our.intern.facebook.com';
 COMMANDS_API_ENDPOINT = 'http://' + API_HOST + '/intern/caf18/commands/';
 STATUS_API_ENDPOINT   = 'http://' + API_HOST + '/intern/caf18/status/';
 
