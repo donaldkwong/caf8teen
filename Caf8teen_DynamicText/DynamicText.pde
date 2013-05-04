@@ -16,13 +16,15 @@ class DynamicText extends LXPattern {
   private final PImage alphaNumericImageOrange;
   private final CharCoordinate[] coordinates;
   private final HashMap alphaNumericMap;
-  int xPosition=-1000;
+  
+  int xPosition = -1000;
   int runNumber = 1;
   int xPos = 1;
   int offset = 0;
-  int corLength =0;
-  int xFade =1;
-  int maxXPos;
+  int corLength = 0;
+  int xFade = 1;
+  int maxXPos = 0;
+
   /**
    * Animation that prints out the given message text.
    */
@@ -84,8 +86,8 @@ class DynamicText extends LXPattern {
       new CharCoordinate(159, 83, 13, 17), 
       new CharCoordinate(181, 83, 14, 17), 
       new CharCoordinate(205, 83, 14, 17)  // 0
-      };
-      alphaNumericMap = new HashMap<String, CharCoordinate>();
+    };
+    alphaNumericMap = new HashMap<String, CharCoordinate>();
     for (int i = 0; i < coordinates.length; i++) {
       alphaNumericMap.put(Character.toString(ALPHA_NUMERIC.charAt(i)), coordinates[i]);
     }
