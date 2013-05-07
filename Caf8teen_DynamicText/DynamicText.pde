@@ -6,12 +6,6 @@ class DynamicText extends LXPattern {
   private static final String ALPHA_NUMERIC = " ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
   private final PImage[] alphaNumericImages;
-  private final PImage alphaNumericImageRed;
-  private final PImage alphaNumericImageGreen;
-  private final PImage alphaNumericImageBlue;
-  private final PImage alphaNumericImageYellow;
-  private final PImage alphaNumericImageViolet;
-  private final PImage alphaNumericImageOrange;
   private final CharCoordinate[] coordinates;
   private final HashMap alphaNumericMap;
   
@@ -28,25 +22,20 @@ class DynamicText extends LXPattern {
    */
   public DynamicText(HeronLX lx) {
     super(lx);
-    
+
     message = args.length > 0 ? args[0] : DEFAULT_STRING;
     message += " ";
     messageLength = message.length();
 
-    alphaNumericImageRed = loadImage("alpha_red.png");
-    alphaNumericImageGreen = loadImage("alpha_green.png");
-    alphaNumericImageBlue = loadImage("alpha_blue.png");
-    alphaNumericImageYellow = loadImage("alpha_yellow.png");
-    alphaNumericImageViolet = loadImage("alpha_violet.png");
-    alphaNumericImageOrange = loadImage("alpha_orange.png");
     alphaNumericImages = new PImage[] {
-      alphaNumericImageRed, 
-      alphaNumericImageGreen, 
-      alphaNumericImageBlue, 
-      alphaNumericImageYellow, 
-      alphaNumericImageViolet, 
-      alphaNumericImageOrange
+      loadImage("alpha_red.png"), 
+      loadImage("alpha_green.png"), 
+      loadImage("alpha_blue.png"), 
+      loadImage("alpha_yellow.png"), 
+      loadImage("alpha_violet.png"), 
+      loadImage("alpha_orange.png")
     };
+
     coordinates = new CharCoordinate[] {
       new CharCoordinate( 15, 0, 9, 17), // " "
       new CharCoordinate(  0, 0, 15, 17), // A
@@ -98,7 +87,7 @@ class DynamicText extends LXPattern {
       CharCoordinate coordinate = (CharCoordinate) alphaNumericMap.get(character);
       messageLengthInPixels += coordinate.getWidth();
     }
-    
+
     // And the screen width
     screenWidth = lx.width;
 
