@@ -5,8 +5,6 @@ class DynamicText extends LXPattern {
   private static final String DEFAULT_STRING = "WELCOME TO CAFE 18";
   private static final String ALPHA_NUMERIC = " ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
-  private final SinLFO xOffset;
-  private final SinLFO yOffset;
   private final PImage[] alphaNumericImages;
   private final PImage alphaNumericImageRed;
   private final PImage alphaNumericImageGreen;
@@ -17,23 +15,24 @@ class DynamicText extends LXPattern {
   private final CharCoordinate[] coordinates;
   private final HashMap alphaNumericMap;
   
-  int xPosition = -1000;
-  int runNumber = 1;
-  int xPos = 1;
-  int offset = 0;
-  int corLength = 0;
-  int xFade = 1;
-  int maxXPos = 0;
-
+  String message = null;
+  int messageLength = 0;
+  int messageLengthInPixels = 0;
+  int screenWidth = 0;
+  int viewportOffset = 0;
+  int runTimeMs = 0;
+  int lastScrollTimeMs = 0;
+  
   /**
    * Animation that prints out the given message text.
    */
   public DynamicText(HeronLX lx) {
     super(lx);
-    xOffset = new SinLFO(-50, 50, 23000);
-    yOffset = new SinLFO(260, 160, 30000);
-    addModulator(xOffset).trigger();
-    addModulator(yOffset).trigger();
+    
+    message = args.length > 0 ? args[0] : DEFAULT_STRING;
+    message += " ";
+    messageLength = message.length();
+
     alphaNumericImageRed = loadImage("alpha_red.png");
     alphaNumericImageGreen = loadImage("alpha_green.png");
     alphaNumericImageBlue = loadImage("alpha_blue.png");
@@ -87,58 +86,62 @@ class DynamicText extends LXPattern {
       new CharCoordinate(181, 83, 14, 17), 
       new CharCoordinate(205, 83, 14, 17)  // 0
     };
+
     alphaNumericMap = new HashMap<String, CharCoordinate>();
     for (int i = 0; i < coordinates.length; i++) {
       alphaNumericMap.put(Character.toString(ALPHA_NUMERIC.charAt(i)), coordinates[i]);
     }
-  }    
+
+    // Precalculate the length of the string
+    for (int i = 0; i < message.length(); i++) {
+      String character = Character.toString(message.charAt(i));
+      CharCoordinate coordinate = (CharCoordinate) alphaNumericMap.get(character);
+      messageLengthInPixels += coordinate.getWidth();
+    }
+    
+    // And the screen width
+    screenWidth = lx.width;
+
+    // Make sure we have enough text to fit the screen
+    while (messageLengthInPixels < screenWidth) {
+      message += message;
+      messageLengthInPixels *= 2;
+    }
+  }
 
   public void run(int deltaMs) {
-    fill(255, 255, 150);
-    StringBuffer sb = new StringBuffer();
-    if (args.length > 0) {
-      sb.append(args[0]);
-    } else {
-      sb.append(DEFAULT_STRING);
+    runTimeMs += deltaMs;
+    if (runTimeMs - lastScrollTimeMs > 5) {
+      lastScrollTimeMs = runTimeMs;
+      
+      viewportOffset++;
+      if (viewportOffset > messageLengthInPixels) {
+        viewportOffset = 0;
+      }
     }
-    sb.append(" ");
-    String message = sb.toString();    
 
-    xPos++;
-    if (maxXPos < 2) { 
-      runNumber = 0; 
-      xPos = 0;
-    };
-    
-    if (xPos%10 < 9) { 
-      runNumber++; 
-      offset++;
-    }
-    
-    xPosition = (lx.width) - runNumber;
-    corLength = corWidth(coordinates);
-
-    for (int i = 0; i < message.length(); i++) {
-      int index = i % alphaNumericImages.length;
+    int xPos = 0;
+    for (int i = 0; i < message.length() * 2; i++) {
+      int index = i % message.length() % alphaNumericImages.length;
       PImage alphaNumericImage = alphaNumericImages[index];
       color transparent = alphaNumericImage.get(0, 0);
 
-      if (xPosition > lx.width - 1) {
-        break;
-      }
-
-      String character = Character.toString(message.charAt(i));
+      String character = Character.toString(message.charAt(i % message.length()));
       CharCoordinate coordinate = (CharCoordinate) alphaNumericMap.get(character);
       int xStart = coordinate.getX();
       int yStart = coordinate.getY();
       int width = coordinate.getWidth();
       int height = coordinate.getHeight();
 
-      for (int x = 0; x < width; x++) {
-        if (xPosition > lx.width - 1) {
+      for (int x = 0; x < width; x++, xPos++) {
+        if (xPos < viewportOffset) {
+          continue;
+        }
+        
+        if (xPos - viewportOffset > screenWidth) {
           break;
         }
-
+        
         for (int y = 0; y < height; y++) {
           if (y > lx.height - 1) {
             break;
@@ -148,29 +151,10 @@ class DynamicText extends LXPattern {
             continue;
           }
 
-          if (lx.width / 2 - runNumber < 0) { 
-            if (xPosition < 0 || i == (message.length()) ) { 
-              continue;
-            }
-            
-            setColor(xPosition, y+3, alphaNumericImage.get(xStart + x, yStart + y));
-          } else {
-            setColor(xPosition, y+3, alphaNumericImage.get(xStart + x, yStart + y));
-          }
+          setColor(xPos - viewportOffset, y+3, alphaNumericImage.get(xStart + x, yStart + y));
         }
-
-        xPosition++;
       }
-      maxXPos = xPosition - 1;
     }
-  }
-
-  private int corWidth(CharCoordinate[] cor) {
-    int corLength = 0;
-    for (int i = 0; i < cor.length; i++) {
-      corLength += cor[i].getWidth();
-    }
-    return corLength;
   }
 
   /**
