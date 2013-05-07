@@ -121,12 +121,12 @@ class DynamicText extends LXPattern {
     }
 
     int xPos = 0;
-    for (int i = 0; i < message.length() * 2; i++) {
-      int index = i % message.length() % alphaNumericImages.length;
+    for (int i = 0; i < messageLength * 2; i++) {
+      int index = i % messageLength % alphaNumericImages.length;
       PImage alphaNumericImage = alphaNumericImages[index];
       color transparent = alphaNumericImage.get(0, 0);
 
-      String character = Character.toString(message.charAt(i % message.length()));
+      String character = Character.toString(message.charAt(i % messageLength));
       CharCoordinate coordinate = (CharCoordinate) alphaNumericMap.get(character);
       int xStart = coordinate.getX();
       int yStart = coordinate.getY();
