@@ -68,7 +68,7 @@ class DynamicText extends LXPattern {
       new CharCoordinate(179, 28, 16, 19), 
       new CharCoordinate(204, 28, 14, 17), 
       new CharCoordinate(  1, 55, 12, 17), 
-      new CharCoordinate( 24, 55, 13, 17), // T
+      new CharCoordinate( 24, 56, 13, 17), // T
       new CharCoordinate( 48, 55, 14, 17), 
       new CharCoordinate( 74, 55, 14, 17), 
       new CharCoordinate( 98, 55, 21, 17), 
@@ -111,7 +111,7 @@ class DynamicText extends LXPattern {
 
   public void run(int deltaMs) {
     runTimeMs += deltaMs;
-    if (runTimeMs - lastScrollTimeMs > 5) {
+    if (runTimeMs - lastScrollTimeMs > 50) {
       lastScrollTimeMs = runTimeMs;
       
       viewportOffset++;
@@ -146,12 +146,7 @@ class DynamicText extends LXPattern {
           if (y > lx.height - 1) {
             break;
           }
-
-          if (alphaNumericImage.get(x, y) == transparent) {
-            continue;
-          }
-
-          setColor(xPos - viewportOffset, y+3, alphaNumericImage.get(xStart + x, yStart + y));
+          setColor(xPos - viewportOffset - 1, y+3, alphaNumericImage.get(xStart + x, yStart + y));
         }
       }
     }
