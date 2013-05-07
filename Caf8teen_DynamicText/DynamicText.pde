@@ -23,9 +23,8 @@ class DynamicText extends LXPattern {
   public DynamicText(HeronLX lx) {
     super(lx);
 
-    message = args.length > 0 ? args[0] : DEFAULT_STRING;
+    message = args.length > 0 ? args[0].toUpperCase() : DEFAULT_STRING;
     message += " ";
-    messageLength = message.length();
 
     alphaNumericImages = new PImage[] {
       loadImage("alpha_red.png"), 
@@ -94,8 +93,10 @@ class DynamicText extends LXPattern {
     // Make sure we have enough text to fit the screen
     while (messageLengthInPixels < screenWidth) {
       message += message;
-      messageLengthInPixels *= 2;
+      messageLengthInPixels += messageLengthInPixels;
     }
+
+    messageLength = message.length();
   }
 
   public void run(int deltaMs) {
