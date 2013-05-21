@@ -18,6 +18,6 @@ def exportScript(script):
   subprocess.call(params);
   return;
 
-scripts = ['Caf8teen', 'Caf8teen_NyanCat', 'Caf8teen_PacMan', 'Caf8teen_DynamicText'];
+scripts = ['Caf8teen', 'Caf8teen_NyanCat', 'Caf8teen_PacMan', 'Caf8teen_DynamicText', 'Caf8teen_GreenDynamicText'];
 for script in scripts:
   exportScript(script);
